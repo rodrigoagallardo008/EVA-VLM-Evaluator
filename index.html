@@ -336,7 +336,7 @@
       </div>
       <div class="phase-card">
         <div class="phase-img-wrap">
-          <img src="assets/images/phase_ltv_repair.jpg" alt="LTV Repair" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="assets/images/phase_ltv_repair.jpg" alt="LTV Repair" onerror="this.src='assets/images/1_birds_eye.jpg';this.onerror=function(){this.style.display='none';this.nextElementSibling.style.display='flex';}">
           <div class="phase-no-img" style="display:none">NO IMAGE</div>
           <div class="phase-overlay ov-l">Phase 03 · LTV Repair</div>
         </div>
@@ -544,10 +544,53 @@
     <div class="conf-grid">
       <div class="conf-card">
         <h4>Confidence Tiers</h4>
-        <div class="tier-row"><span class="tier-lbl">LOW ≥ 0.50</span><div class="tier-track"><div class="tier-fill" style="width:50%;background:var(--dim);"></div></div><span class="tier-num">0.50</span></div>
-        <div class="tier-row"><span class="tier-lbl">MED ≥ 0.70</span><div class="tier-track"><div class="tier-fill" style="width:70%;background:var(--ltv);"></div></div><span class="tier-num">0.70</span></div>
-        <div class="tier-row"><span class="tier-lbl">HIGH ≥ 0.90</span><div class="tier-track"><div class="tier-fill" style="width:90%;background:var(--red);"></div></div><span class="tier-num">0.90</span></div>
+
+        <!-- LOW -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="width:12px;height:12px;border-radius:50%;background:#cc0000;flex-shrink:0;box-shadow:0 0 0 3px #ffcccc;"></div>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#cc0000;">LOW ≥ 0.50</span>
+              <span style="font-family:var(--mono);font-size:10px;color:var(--dim);">threshold</span>
+            </div>
+            <div style="height:8px;background:var(--bg3);position:relative;">
+              <div style="width:50%;height:100%;background:linear-gradient(to right,#ffeeee,#cc0000);"></div>
+            </div>
+            <p style="font-size:10px;color:var(--dim);margin-top:4px;">Low certainty — model may be guessing. Includes uncertain predictions.</p>
+          </div>
+        </div>
+
+        <!-- MEDIUM -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="width:12px;height:12px;border-radius:50%;background:#ca8a04;flex-shrink:0;box-shadow:0 0 0 3px #fef3c7;"></div>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#ca8a04;">MED ≥ 0.70</span>
+              <span style="font-family:var(--mono);font-size:10px;color:var(--dim);">threshold</span>
+            </div>
+            <div style="height:8px;background:var(--bg3);position:relative;">
+              <div style="width:70%;height:100%;background:linear-gradient(to right,#fef9ee,#ca8a04);"></div>
+            </div>
+            <p style="font-size:10px;color:var(--dim);margin-top:4px;">Moderate certainty — reasonable predictions, some ambiguity remains.</p>
+          </div>
+        </div>
+
+        <!-- HIGH -->
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:12px;height:12px;border-radius:50%;background:#059669;flex-shrink:0;box-shadow:0 0 0 3px #d1fae5;"></div>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#059669;">HIGH ≥ 0.90</span>
+              <span style="font-family:var(--mono);font-size:10px;color:var(--dim);">threshold</span>
+            </div>
+            <div style="height:8px;background:var(--bg3);position:relative;">
+              <div style="width:90%;height:100%;background:linear-gradient(to right,#f0fdf4,#059669);"></div>
+            </div>
+            <p style="font-size:10px;color:var(--dim);margin-top:4px;">High certainty — model is confident. Most reliable predictions.</p>
+          </div>
+        </div>
       </div>
+
       <div class="conf-card">
         <h4>Evaluation Prompt</h4>
         <div class="prompt-box">
