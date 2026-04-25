@@ -1,0 +1,1257 @@
+{
+  "run_label": "gemini-2.5-flash-lite_20260424_201931",
+  "model": "gemini-2.5-flash-lite",
+  "timestamp": "2026-04-24T20:24:37.721935",
+  "prompt": "You are evaluating NASA SUITS EVA (Extravehicular Activity) operation imagery.\n\nYour task is to classify which EVA phase is shown in the image.\n\nThe three possible phases are:\n- EGRESS: Astronaut exiting airlock, initial positioning, suit and equipment checks\n- NAVIGATION: Crew traversing the surface or worksite, navigation panel interaction, ANAV/LiDAR/comms systems visible\n- LTV_REPAIR: Lunar Terrain Vehicle maintenance, fuse box access, PDD or science management hardware interaction\n\nRespond ONLY with a valid JSON object in exactly this format:\n{\n  \"phase\": \"EGRESS\" | \"NAVIGATION\" | \"LTV_REPAIR\",\n  \"confidence\": <float between 0.0 and 1.0>,\n  \"reasoning\": \"<one sentence explanation>\"\n}\n\nDo not include any text, markdown, or explanation outside the JSON object.",
+  "config": {
+    "limit": null,
+    "phase_filter": null,
+    "delay": 0.5,
+    "shuffle": false
+  },
+  "summary": {
+    "total": 130,
+    "evaluated": 130,
+    "errors": 0,
+    "correct": 91,
+    "accuracy": 0.7,
+    "avg_confidence": 0.8976923076923077
+  },
+  "phase_accuracy": {
+    "EGRESS": {
+      "total": 40,
+      "correct": 14,
+      "accuracy": 0.35,
+      "avg_confidence": 0.89
+    },
+    "NAVIGATION": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": null,
+      "avg_confidence": null
+    },
+    "LTV_REPAIR": {
+      "total": 90,
+      "correct": 77,
+      "accuracy": 0.8555555555555555,
+      "avg_confidence": 0.9011111111111112
+    }
+  },
+  "confusion_matrix": {
+    "EGRESS": {
+      "EGRESS": 14,
+      "NAVIGATION": 0,
+      "LTV_REPAIR": 26
+    },
+    "NAVIGATION": {
+      "EGRESS": 0,
+      "NAVIGATION": 0,
+      "LTV_REPAIR": 0
+    },
+    "LTV_REPAIR": {
+      "EGRESS": 0,
+      "NAVIGATION": 13,
+      "LTV_REPAIR": 77
+    }
+  },
+  "threshold_analysis": {
+    "low": {
+      "threshold": 0.5,
+      "n_above": 130,
+      "n_correct": 91,
+      "accuracy": 0.7,
+      "coverage": 1.0
+    },
+    "medium": {
+      "threshold": 0.7,
+      "n_above": 130,
+      "n_correct": 91,
+      "accuracy": 0.7,
+      "coverage": 1.0
+    },
+    "high": {
+      "threshold": 0.9,
+      "n_above": 126,
+      "n_correct": 90,
+      "accuracy": 0.7142857142857143,
+      "coverage": 0.9692307692307692
+    }
+  },
+  "thresholds": {
+    "low": 0.5,
+    "medium": 0.7,
+    "high": 0.9
+  },
+  "results": [
+    {
+      "filename": "EGRESS_dcu_aug_001.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of a control panel with labels like 'OXY', 'BAT', 'PUMP', and 'FAN', suggesting suit and equipment checks during egress.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_aug_002.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a close-up of a control panel with labels such as 'OXY', 'BAT', 'PUMP', and 'FAN', which are indicative of equipment maintenance or repair, consistent with LTV_REPAIR.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_aug_003.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of a piece of equipment with labels like 'PUMP', 'BAT', and 'OXY', suggesting initial suit and equipment checks during egress.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_aug_004.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a device with labels like 'BAT' and 'OXO', which are indicative of suit and equipment checks during the EGRESS phase of an EVA.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_aug_005.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a device with labels 'FAN' and 'PUMP', and a toggle switch, which are indicative of equipment maintenance or repair, consistent with LTV_REPAIR.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_aug_006.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a close-up of a panel with various connectors and labels, including 'FAN' and 'YXO', which are indicative of equipment maintenance or repair, specifically related to a vehicle like the Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_aug_007.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.8,
+      "correct": false,
+      "reasoning": "The image shows components labeled 'OXY', 'PUMP', and 'FAN', which are indicative of equipment maintenance or repair, likely on a vehicle.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_aug_008.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows labels for 'OXY' and 'BAT' on switches, which are typical for pre-egress suit checks.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_aug_009.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a close-up of a panel with labels like 'PUMP' and 'FAN', and what appears to be a fuse box or access panel, indicative of LTV maintenance.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_aug_010.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with labels for 'FAN', 'PUMP', 'OXY', and 'BAT', which are consistent with suit and equipment checks during the EGRESS phase.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_front_aug_001.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a device with toggle switches and a vent, resembling a control panel or a component that might be part of a Lunar Terrain Vehicle's repair or maintenance.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_front_aug_002.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a close-up of a device with switches and what appears to be a fuse box or control panel, consistent with Lunar Terrain Vehicle maintenance.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_front_aug_003.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a device with multiple toggle switches and what appears to be a fuse box or control panel, consistent with Lunar Terrain Vehicle maintenance.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_front_aug_004.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a device with switches and what appears to be a fuse box or electronic component access panel, consistent with Lunar Terrain Vehicle maintenance.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_front_aug_005.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a close-up of a device with toggle switches and a visible circuit board through a vent, suggesting interaction with electronic components, consistent with LTV repair.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_front_aug_006.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of a device with a NASA SUITS logo and what appear to be connectors or ports, consistent with equipment checks during the EGRESS phase.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_front_aug_007.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a device with switches and a speaker grille, consistent with hardware that might be part of a Lunar Terrain Vehicle's control or diagnostic system, suggesting LTV repair.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_front_aug_008.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a panel with switches and a vent, consistent with the maintenance or repair of a vehicle like the Lunar Terrain Vehicle, and the NASA SUITS logo is visible.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_front_aug_009.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a device with toggle switches and what appears to be a fuse box or control panel, consistent with Lunar Terrain Vehicle maintenance.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_front_aug_010.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.8,
+      "correct": false,
+      "reasoning": "The image shows a panel with what appears to be a fuse box or access panel, consistent with LTV repair operations.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_top_aug_001.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'FAN', 'CO2', 'SEC BATT', and 'LOCAL BATT UMB', which are indicative of equipment maintenance or repair, specifically related to a Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_top_aug_002.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a white, rectangular object with text labels on its sides, resembling equipment or a module being prepared for or during egress from an airlock.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_top_aug_003.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows labels with text like 'FAN', 'OPEN PUMP CLOSE', and 'SEC', which are indicative of equipment checks and potential repairs related to a vehicle or system.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_top_aug_004.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a tray-like object with handles and what appear to be labels or instructions, consistent with equipment being prepared or checked during an egress phase.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_top_aug_005.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a white panel with metallic fixtures and what appears to be tape, consistent with equipment being prepared or checked during the egress phase of an EVA.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_top_aug_006.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.8,
+      "correct": true,
+      "reasoning": "The image shows a structure that resembles an airlock or habitat, with a textured surface suggesting an exterior environment, consistent with an astronaut exiting.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_top_aug_007.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a close-up of a component with labels such as 'SEC BATT', 'SEC OXY', and 'LOCAL B', which are indicative of equipment found on a Lunar Terrain Vehicle during repair operations.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_top_aug_008.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.8,
+      "correct": false,
+      "reasoning": "The image shows a white panel with labels and what appear to be connectors or components, consistent with maintenance or repair of a vehicle like the Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_top_aug_009.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a device with labels that appear to be related to vehicle maintenance, such as 'FAN' and 'OPEN PUMP CLOSE', suggesting an LTV repair operation.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_dcu_top_aug_010.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows labels such as 'FAN', 'OPEN PUMP CLOSE', and 'COS' which are indicative of components or procedures related to vehicle maintenance.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_uia (1)_aug_001.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a panel with labels and indicators that are consistent with equipment found on a Lunar Terrain Vehicle, suggesting maintenance or repair activities.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_uia (1)_aug_002.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a panel with various labels and components that appear to be part of a vehicle's maintenance system, consistent with LTV repair operations.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_uia (1)_aug_003.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with labels like 'UIA', 'EV-1', 'EV-2', 'EMU', 'POWER', 'WATER', 'OXYGEN', and switches for 'OPEN'/'CLOSE' and 'ON'/'OFF', which are indicative of suit and equipment checks during egress.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_uia (1)_aug_004.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a panel with labels like 'EMU', 'OPEN', 'CLOSE', and 'EGRESS PUMP', which are indicative of an astronaut preparing to exit or having just exited an airlock.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_uia (1)_aug_005.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a panel with labels such as 'OXYGEN', 'WATER', and various connectors and indicators, consistent with equipment found on a Lunar Terrain Vehicle that would require maintenance or repair.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_uia (1)_aug_006.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with labels like 'EV-1', 'EV-2', 'EMU', 'WASTE', 'WATER', 'OXYGEN', and 'PWR', which are indicative of an Extravehicular Activity (EVA) setup, specifically related to suit and equipment checks before or during egress.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_uia (1)_aug_007.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "EGRESS",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with labels like 'EMU', 'OPEN', 'CLOSE', 'WATER SUPPLY', and 'OXYGEN', which are indicative of suit and equipment checks during egress.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_uia (1)_aug_008.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'WATER SUPPLY', 'OXYGEN', and 'POWER', along with switches and indicators, strongly suggesting interaction with a vehicle's systems, consistent with LTV repair.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_uia (1)_aug_009.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a panel with labels such as 'WASTE WATER PORT', 'POWER SUPPLY', and 'FAULT', which are indicative of equipment maintenance, likely on a Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "EGRESS_uia (1)_aug_010.jpg",
+      "true_phase": "EGRESS",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'UIA', 'EV-1', 'EV-2', 'WASTE', 'PWR', and 'EMU', which are consistent with equipment found on a Lunar Terrain Vehicle (LTV) and its associated systems for EVA operations.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_1_birds_eye_aug_001.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box and various control panels with labels such as 'ANAV', 'LiDAR', and 'COMMS', strongly suggesting maintenance or repair of a vehicle like the Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_1_birds_eye_aug_002.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box and various electronic components with labels suggesting maintenance or repair of a vehicle, consistent with LTV_REPAIR.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_1_birds_eye_aug_003.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a collection of electronic components including a fuse box, switches, and a digital display, which are indicative of maintenance or repair activities on a vehicle like the Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_1_birds_eye_aug_004.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays various electronic components, including a fuse box, switches, and a digital display, which are consistent with the maintenance and repair of a Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_1_birds_eye_aug_005.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays various electronic components and a fuse box, which are indicative of vehicle maintenance or repair activities.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_1_birds_eye_aug_006.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box and various electronic control panels with labels such as 'POWER', 'STATUS', 'HAND', 'AUTO', 'NAV', 'LIDAR', and 'COMMS', strongly suggesting maintenance or repair of a vehicle or complex system.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_1_birds_eye_aug_007.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays various electronic components and switches, including a fuse box and what appears to be a control panel with labels like 'CSR', 'SFA', and 'LOG', which are indicative of vehicle maintenance or repair operations.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_1_birds_eye_aug_008.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays various electronic components and panels with labels such as 'POWER', 'STATUS', 'ANAV', 'LiDAR', and 'COMMS', which are indicative of systems related to vehicle maintenance and operation.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_1_birds_eye_aug_009.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays various control panels with labels such as 'ANAV', 'LiDAR', and 'COMMS', which are indicative of navigation systems used during an EVA.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_1_birds_eye_aug_010.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays several control panels with labels such as 'NAV', 'ANAV', 'LIDAR', and 'STATUS', which are indicative of navigation and communication systems used during EVA operations.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_2_birds_eye_aug_001.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays various electronic components and switches labeled with terms like 'ASITS', 'NAV', and 'AMAV', which are indicative of equipment related to Lunar Terrain Vehicle (LTV) repair and operation.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_2_birds_eye_aug_002.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box and various electronic control panels with switches and indicators, strongly suggesting maintenance or repair of a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_2_birds_eye_aug_003.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays various electronic components, switches, and connectors that are consistent with equipment used for Lunar Terrain Vehicle maintenance, including what appears to be a fuse box and diagnostic panels.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_2_birds_eye_aug_004.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays various electronic components, including a fuse box, switches, and what appears to be a battery pack, which are consistent with maintenance or repair activities on a vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_2_birds_eye_aug_005.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays various electronic components, including a fuse box, switches, and what appears to be a battery pack, which are consistent with Lunar Terrain Vehicle maintenance and repair activities.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_2_birds_eye_aug_006.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box and various electronic components that are consistent with maintenance or repair activities on a vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_2_birds_eye_aug_007.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays various electronic components, switches, and a digital display, consistent with the maintenance or repair of a complex system like a Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_2_birds_eye_aug_008.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays components and controls consistent with Lunar Terrain Vehicle maintenance, including a pull-out disconnect switch and a panel with various switches and indicators labeled for navigation and system functions.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_2_birds_eye_aug_009.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays various electronic components, including a fuse box, switches, and what appears to be a control panel with labels like 'POWER', 'STATUS', and 'ON/OFF', strongly suggesting maintenance or repair of a vehicle or system.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_2_birds_eye_aug_010.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a pull-out disconnect switch and various control panels with labels like 'ECO', 'LOG', and 'CSR', which are indicative of Lunar Terrain Vehicle maintenance and repair operations.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_3_birds_eye_aug_001.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a fuse box and various electronic components, strongly suggesting maintenance or repair of a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_3_birds_eye_aug_002.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box and various control panels with labels like 'CSR', 'SFA', 'EBD', and 'RECO', which are indicative of equipment maintenance or repair, specifically related to a vehicle or system.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_3_birds_eye_aug_003.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays components such as a fuse box, circuit breakers, and various control panels with labels like 'POWER', 'CTRL', 'TEST', and 'RESET', which are indicative of vehicle maintenance or repair activities.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_3_birds_eye_aug_004.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays components resembling a fuse box, wiring, and control panels with labels like 'CSR', 'SFA', and 'POWER', which are indicative of vehicle maintenance or repair activities.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_3_birds_eye_aug_005.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box, various switches, and a digital display, which are components commonly associated with vehicle maintenance and repair.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_3_birds_eye_aug_006.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box and various electrical components, strongly suggesting maintenance or repair of a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_3_birds_eye_aug_007.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box with fuses and wiring, along with various electronic components and switches, strongly suggesting maintenance or repair of a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_3_birds_eye_aug_008.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box, switches, and various electronic components, strongly suggesting maintenance or repair of a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_3_birds_eye_aug_009.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box with fuses and wiring, along with various control panels and connectors, strongly suggesting maintenance or repair of a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_3_birds_eye_aug_010.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse box with fuses and wiring, along with various control panels that resemble those used for vehicle maintenance or diagnostics, suggesting an LTV repair scenario.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_alt_box_close_up_aug_001.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a control panel with labels such as 'POWER', 'RESET', 'TEST', and 'CTRL', along with indicator lights and switches, which are consistent with hardware used for vehicle maintenance or repair.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_alt_box_close_up_aug_002.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of a control panel with switches, indicator lights, and labels that appear to be related to vehicle maintenance or diagnostics, consistent with LTV repair.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_alt_box_close_up_aug_003.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a toggle switch labeled 'ON' and what appears to be a fuse box or control panel, consistent with Lunar Terrain Vehicle maintenance.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_alt_box_close_up_aug_004.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with labels like 'STATUS', 'CTRL', 'TEST', 'ALT', 'RESET', and 'POWER', along with switches and indicator lights, which are consistent with components found on a Lunar Terrain Vehicle for maintenance or repair operations.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_alt_box_close_up_aug_005.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a toggle switch labeled 'ON' and 'OFF', a fuse-like component in a clear housing, and indicator lights, all of which are consistent with components found in vehicle repair or maintenance.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_alt_box_close_up_aug_006.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of a control panel with switches and buttons, consistent with maintenance or repair of a vehicle like the Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_alt_box_close_up_aug_007.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays components that appear to be part of a control panel, including switches and knobs, which are consistent with maintenance or repair activities on a vehicle like the Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_alt_box_close_up_aug_008.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a control panel with labels such as 'POWER', 'STATUS', 'CTRL', 'TEST', 'TJA', and 'RESET', along with switches and buttons, which are indicative of equipment maintenance or repair, specifically related to a Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_alt_box_close_up_aug_009.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a control panel with buttons, switches, and indicator lights, consistent with hardware used for Lunar Terrain Vehicle maintenance or diagnostics.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_alt_box_close_up_aug_010.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a control panel with labels like 'STATUS', 'POWER', 'CTRL', 'TEST', 'ALT', and 'RESET', along with indicator lights and switches, suggesting equipment maintenance or repair.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_comms_close_up_aug_001.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of a control panel with labels such as 'BOX', 'RESET', and 'AMP', along with indicator lights, which are consistent with Lunar Terrain Vehicle maintenance.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_comms_close_up_aug_002.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with knobs and indicators labeled with terms like 'FREQ ADJ', 'MOD', and 'AMP', which are consistent with equipment used for vehicle maintenance or repair.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_comms_close_up_aug_003.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of a control panel with knobs and indicator lights, consistent with maintenance or repair of a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_comms_close_up_aug_004.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'PROX RSSI', 'FREQ ADJ', 'PHS', 'MOD', and 'AMP', along with indicator lights and adjustment knobs, which are consistent with navigation or communication systems used during EVA.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_comms_close_up_aug_005.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a control panel with labels such as 'FREQ ADJ', 'PROX RSSI', 'MOD', and 'AMP', along with indicator lights and adjustment knobs, which are consistent with navigation or communication equipment used during an EVA.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_comms_close_up_aug_006.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with labels such as 'AMP', 'MOD', 'PHS', 'FREQ ADJ', and 'PROX RSSI', which are indicative of electronic equipment likely found on a Lunar Terrain Vehicle during repair or maintenance.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_comms_close_up_aug_007.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of a control panel with labels like 'AMP', 'MOD', and 'COM', along with a fuse box-like component, strongly suggesting LTV repair activities.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_comms_close_up_aug_008.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with labels like 'AMP', 'MOD', 'PHS', 'FREQ ADJ', and 'PROX RSSI', which are indicative of equipment used for communication or navigation systems, often found on vehicles like the Lunar Terrain Vehicle, suggesting a repair or maintenance context.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_comms_close_up_aug_009.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with knobs and indicators, labeled with terms like 'FREQ ADJ', '2H9', 'PROX', 'RSSI', and '30', which are consistent with equipment used for Lunar Terrain Vehicle maintenance and diagnostics.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_comms_close_up_aug_010.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image shows a device with labels such as 'PROX RSSI', 'PHS', 'MOD', and 'AMP', along with a signal strength indicator, which are consistent with navigation or communication equipment used during EVA.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_nav_close_up_aug_001.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a control panel with labels such as 'VANA', 'BROCK', 'HTR', 'ADA', 'SEC', 'COMM', and 'RESET', which are indicative of systems related to a Lunar Terrain Vehicle (LTV) and its maintenance or operation.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_nav_close_up_aug_002.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'VAN RESET', 'VAN BLOCK', and 'COMMS', which are indicative of navigation and communication systems used during EVA operations.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_nav_close_up_aug_003.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'NAV RESET', 'LIDAR RESET', 'ANAV BLOCK', and 'ANAV RTH', which are indicative of navigation systems.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_nav_close_up_aug_004.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'LIDAR RESET', 'NAV RESET', and 'ANAV BLOCK', which are indicative of navigation systems used during an EVA.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_nav_close_up_aug_005.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'ANAV', 'LiDAR', and 'COMM', which are directly related to navigation and communication systems used during EVA operations.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_nav_close_up_aug_006.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'NAV RESET', 'LIDAR RESET', and 'COMM', which are indicative of navigation and communication systems used during EVA.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_nav_close_up_aug_007.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a control panel with multiple switches and labels that appear to be related to vehicle maintenance, such as 'OFF', 'ON', 'LOCK', and 'RESET', consistent with LTV_REPAIR operations.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_nav_close_up_aug_008.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'LIDAR RESET', 'ANAV', and 'COMMS', which are indicative of navigation and communication systems used during EVA operations.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_nav_close_up_aug_009.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'NAV RESET', 'LIDAR RESET', and 'COMMS', which are indicative of navigation systems used during an EVA.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_nav_close_up_aug_010.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "NAVIGATION",
+      "confidence": 0.9,
+      "correct": false,
+      "reasoning": "The image displays a control panel with labels such as 'LIDAR RESET', 'NAV RESET', and 'ANAV BLOCK', which are indicative of navigation systems used during an EVA.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_open_fuse_box_close_up_aug_001.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 1.0,
+      "correct": true,
+      "reasoning": "The image clearly shows a fuse box with fuses and wiring, which is indicative of maintenance or repair work on a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_open_fuse_box_close_up_aug_002.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image clearly shows a fuse box with fuses and wiring, which is indicative of maintenance or repair work on a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_open_fuse_box_close_up_aug_003.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a fuse box with fuses and wiring, which is indicative of maintenance or repair work on a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_open_fuse_box_close_up_aug_004.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of a fuse box with fuses and wiring, which is consistent with maintenance or repair of a Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_open_fuse_box_close_up_aug_005.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a fuse box with fuses, which is indicative of maintenance or repair work on a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_open_fuse_box_close_up_aug_006.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image clearly shows a fuse box with fuses and wiring, which is indicative of maintenance or repair work on a vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_open_fuse_box_close_up_aug_007.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image clearly shows a fuse box with fuses and wiring, which is indicative of maintenance or repair work on a vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_open_fuse_box_close_up_aug_008.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a fuse box with fuses and wiring, which is consistent with maintenance or repair of a vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_open_fuse_box_close_up_aug_009.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of a fuse box with fuses and wiring, which is indicative of maintenance or repair work on a vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_open_fuse_box_close_up_aug_010.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image clearly shows a fuse box with fuses and wiring, which is indicative of maintenance or repair work on a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_pdd_close_up_aug_001.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with labels like 'CSR', 'SFA', 'LOG', and 'EBD', along with switches and a digital display, which are indicative of equipment maintenance or repair, specifically related to a Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_pdd_close_up_aug_002.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of a control panel with switches, a digital display, and what appears to be a fuse box, suggesting maintenance or repair of a vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_pdd_close_up_aug_003.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse, electrical connectors labeled with voltage and function, switches, and a digital display, all indicative of equipment maintenance or repair, specifically related to a vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_pdd_close_up_aug_004.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a control panel with switches, a digital display, and buttons, which are consistent with equipment used for Lunar Terrain Vehicle maintenance.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_pdd_close_up_aug_005.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a control panel with switches labeled 'RECO' and 'LBD', along with a digital display and buttons, which are consistent with components found on a Lunar Terrain Vehicle for maintenance or operation.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_pdd_close_up_aug_006.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a control panel with labels such as 'RECO', 'EBD', 'POM', 'LOG', 'SFA', and 'CSR', along with switches and a digital display, which are indicative of equipment maintenance or repair operations, specifically related to a Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_pdd_close_up_aug_007.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with labels like 'EBD', 'SFA', and 'CSR', along with a digital display and switches, which are indicative of equipment maintenance or repair, specifically related to a Lunar Terrain Vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_pdd_close_up_aug_008.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a close-up of electronic components, including a fuse, switches, and connectors, which are indicative of maintenance or repair activities on a vehicle or equipment.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_pdd_close_up_aug_009.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a control panel with switches, a digital display, and connectors, consistent with hardware used for Lunar Terrain Vehicle maintenance or diagnostics.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_pdd_close_up_aug_010.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image displays a fuse, a digital display showing '8.8.8.8', and various switches and connectors, which are indicative of electrical system maintenance or repair on a vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_science_management_close_up_aug_001.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image clearly shows a fuse box and electronic components, which are indicative of vehicle maintenance or repair activities.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_science_management_close_up_aug_002.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image clearly shows a fuse box and electronic components, which are indicative of vehicle maintenance or repair activities.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_science_management_close_up_aug_003.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image clearly shows a fuse box and associated wiring, which are components typically accessed during vehicle maintenance.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_science_management_close_up_aug_004.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a fuse box and electronic components, which are indicative of vehicle maintenance or repair activities.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_science_management_close_up_aug_005.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a fuse box and electronic components, which are indicative of vehicle maintenance or repair activities.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_science_management_close_up_aug_006.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image clearly shows a fuse box with fuses and wiring, which is indicative of vehicle maintenance or repair.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_science_management_close_up_aug_007.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a fuse box and electronic components, which are indicative of vehicle maintenance or repair activities.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_science_management_close_up_aug_008.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image clearly shows a fuse box with fuses, wires, and what appears to be electronic components, strongly indicating maintenance or repair of a vehicle.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_science_management_close_up_aug_009.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a fuse box and electronic components, which are indicative of vehicle maintenance or repair activities.",
+      "error": false
+    },
+    {
+      "filename": "LTV_REPAIR_science_management_close_up_aug_010.jpg",
+      "true_phase": "LTV_REPAIR",
+      "predicted_phase": "LTV_REPAIR",
+      "confidence": 0.9,
+      "correct": true,
+      "reasoning": "The image shows a fuse box and what appears to be a component with a serial number, strongly suggesting maintenance or repair of a vehicle.",
+      "error": false
+    }
+  ]
+}
