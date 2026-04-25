@@ -3,309 +3,287 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EVA VLM State Evaluator</title>
+  <title>EVA VLM State Evaluator — NASA SUITS 2025</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #fff;
-      --bg2: #f8fafc;
-      --bg3: #f1f5f9;
-      --border: #e2e8f0;
-      --border2: #cbd5e1;
-      --text: #0f172a;
-      --muted: #475569;
-      --dim: #94a3b8;
-      --blue: #2563eb;
-      --blue-light: #eff6ff;
-      --blue-mid: #bfdbfe;
-      --blue-dark: #1d4ed8;
-      --green: #059669;
-      --green-light: #ecfdf5;
-      --amber: #d97706;
-      --amber-light: #fffbeb;
-      --purple: #7c3aed;
-      --purple-light: #f5f3ff;
+      --red: #cc0000;
+      --red-light: #fff0f0;
+      --red-mid: #ffcccc;
+      --bg: #ffffff;
+      --bg2: #f8f8f8;
+      --bg3: #f0f0f0;
+      --border: #e0e0e0;
+      --border2: #cccccc;
+      --text: #111111;
+      --muted: #444444;
+      --dim: #888888;
       --egress: #2563eb;
       --nav: #059669;
       --ltv: #d97706;
       --sans: Helvetica, Arial, sans-serif;
       --mono: 'Courier New', Courier, monospace;
-      --radius: 10px;
-      --radius-sm: 6px;
-      --shadow: 0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.05);
-      --shadow-md: 0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.05);
+      --radius: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.08);
+      --shadow-md: 0 3px 10px rgba(0,0,0,.1);
     }
 
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.6; }
 
-    /* NAV */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.96); backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; height: 56px;
-    }
-    .nav-brand { display: flex; align-items: center; gap: 10px; }
-    .nav-logo { font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
-    .nav-logo .accent { color: var(--blue); }
-    .nav-v { background: var(--blue); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; font-family: var(--mono); letter-spacing: 0.04em; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-gh { font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; padding: 6px 12px; border: 1px solid var(--border2); border-radius: var(--radius-sm); }
-    .nav-gh:hover { background: var(--bg2); color: var(--text); }
+    nav { display: none; }
 
     /* HERO */
-    .hero { max-width: 900px; margin: 0 auto; padding: 72px 2.5rem 60px; border-bottom: 1px solid var(--border); }
-    .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
-    .tag-pill { font-size: 11px; font-weight: 600; padding: 3px 11px; border-radius: 20px; }
-    .tp-blue   { background: var(--blue-light);  color: var(--blue-dark); border: 1px solid var(--blue-mid); }
-    .tp-green  { background: var(--green-light);  color: #065f46; border: 1px solid #a7f3d0; }
-    .tp-amber  { background: var(--amber-light);  color: #92400e; border: 1px solid #fde68a; }
-    .tp-purple { background: var(--purple-light); color: #5b21b6; border: 1px solid #ddd6fe; }
-    .tp-slate  { background: var(--bg3); color: var(--muted); border: 1px solid var(--border2); }
-
-    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.08; margin-bottom: 6px; }
-    .hero h1 .hl { color: var(--blue); }
-    .hero-sub { font-size: 1rem; color: var(--muted); margin-bottom: 20px; }
-    .hero-abstract { font-size: 15px; color: var(--muted); max-width: 660px; line-height: 1.75; margin-bottom: 36px; }
+    .hero { max-width: 900px; margin: 0 auto; padding: 64px 2.5rem 52px; border-bottom: 1px solid var(--border); }
+    .hero-kicker { font-size: 11px; font-weight: 700; color: var(--red); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.08; margin-bottom: 16px; }
+    .hero-line { display: block; color: var(--red); }
+    .hero-abstract { font-size: 14px; color: var(--muted); max-width: 640px; line-height: 1.75; margin-bottom: 32px; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+    .tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border: 1px solid var(--border2); color: var(--muted); letter-spacing: 0.02em; }
+    .tag-red { border-color: var(--red-mid); color: var(--red); background: var(--red-light); }
     .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
-    .btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 20px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.15s; font-family: var(--sans); }
-    .btn-primary { background: var(--blue); color: #fff; }
-    .btn-primary:hover { background: var(--blue-dark); }
-    .btn-outline { background: var(--bg); color: var(--text); border: 1px solid var(--border2); }
-    .btn-outline:hover { background: var(--bg2); }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; font-size: 12px; font-weight: 700; text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer; border: none; font-family: var(--sans); transition: all 0.1s; }
+    .btn-primary { background: var(--text); color: #fff; }
+    .btn-primary:hover { background: var(--red); }
+    .btn-outline { background: var(--bg); color: var(--text); border: 1.5px solid var(--text); }
+    .btn-outline:hover { border-color: var(--red); color: var(--red); }
 
     /* STATS */
-    .stats-strip { background: var(--bg2); border-bottom: 1px solid var(--border); }
+    .stats-strip { border-bottom: 1px solid var(--border); }
     .stats-inner { max-width: 900px; margin: 0 auto; display: flex; }
     .stat { flex: 1; padding: 18px 16px; text-align: center; border-right: 1px solid var(--border); }
     .stat:last-child { border-right: none; }
-    .stat-num { font-family: var(--mono); font-size: 1.4rem; font-weight: 700; color: var(--blue); display: block; }
-    .stat-label { font-size: 10px; font-weight: 600; color: var(--dim); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 3px; }
+    .stat-num { font-family: var(--mono); font-size: 1.4rem; font-weight: 700; color: var(--red); display: block; }
+    .stat-label { font-size: 10px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
 
     /* LAYOUT */
     main { max-width: 900px; margin: 0 auto; padding: 0 2.5rem; }
-    section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+    section { padding: 56px 0; border-bottom: 1px solid var(--border); }
     section:last-child { border-bottom: none; }
-    .eyebrow { font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-    .eyebrow::after { content: ''; flex: 0 0 20px; height: 2px; background: var(--blue); border-radius: 1px; }
-    h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 12px; }
-    .sec-desc { font-size: 14px; color: var(--muted); max-width: 640px; margin-bottom: 32px; line-height: 1.75; }
+    .sec-label { font-size: 10px; font-weight: 700; color: var(--red); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
+    h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 12px; }
+    .sec-desc { font-size: 13px; color: var(--muted); max-width: 620px; margin-bottom: 28px; line-height: 1.75; }
 
     /* PHASE CARDS */
-    .phase-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-    .phase-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: box-shadow 0.2s, transform 0.2s; }
-    .phase-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-    .phase-img-wrap { height: 170px; overflow: hidden; position: relative; background: var(--bg3); }
-    .phase-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
-    .phase-no-img { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; font-family: var(--mono); color: var(--dim); letter-spacing: 0.06em; }
-    .phase-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 10px; font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 0.1em; color: #fff; text-transform: uppercase; }
-    .ov-e { background: linear-gradient(transparent, rgba(37,99,235,0.85)); }
-    .ov-n { background: linear-gradient(transparent, rgba(5,150,105,0.85)); }
-    .ov-l { background: linear-gradient(transparent, rgba(217,119,6,0.85)); }
-    .phase-body { padding: 16px; }
-    .phase-num { font-family: var(--mono); font-size: 9px; color: var(--dim); letter-spacing: 0.12em; margin-bottom: 6px; }
-    .phase-name { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+    .phase-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .phase-card { border: 1px solid var(--border); overflow: hidden; }
+    .phase-card:hover { box-shadow: var(--shadow-md); }
+    .phase-img-wrap { height: 160px; overflow: hidden; position: relative; background: var(--bg3); }
+    .phase-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .phase-no-img { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: 0.06em; }
+    .phase-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 5px 10px; font-family: var(--mono); font-size: 9px; font-weight: 700; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .ov-e { background: rgba(37,99,235,0.85); }
+    .ov-n { background: rgba(5,150,105,0.85); }
+    .ov-l { background: rgba(217,119,6,0.85); }
+    .phase-body { padding: 14px; }
+    .phase-num { font-family: var(--mono); font-size: 9px; color: var(--dim); letter-spacing: 0.12em; margin-bottom: 5px; }
+    .phase-name { font-size: 12px; font-weight: 700; margin-bottom: 7px; }
     .pn-e { color: var(--egress); } .pn-n { color: var(--nav); } .pn-l { color: var(--ltv); }
-    .phase-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
-    .phase-tags { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 5px; }
-    .ptag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: var(--bg3); color: var(--muted); border: 1px solid var(--border); }
+    .phase-desc { font-size: 11px; color: var(--muted); line-height: 1.55; }
+    .phase-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px; }
+    .ptag { font-size: 9px; font-weight: 600; padding: 1px 7px; background: var(--bg2); color: var(--dim); border: 1px solid var(--border); }
 
-    /* AUGMENTATION DIAGRAM */
-    .aug-diagram { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 28px; }
-    .aug-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 14px; background: var(--bg2); }
-    .aug-card h4 { font-size: 11px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-    .aug-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; font-size: 12px; color: var(--muted); line-height: 1.4; }
-    .aug-item::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 5px; }
-    .aug-card:nth-child(2) .aug-item::before { background: var(--green); }
-    .aug-card:nth-child(3) .aug-item::before { background: var(--amber); }
-    .aug-card:nth-child(4) .aug-item::before { background: var(--purple); }
+    /* AUGMENTATION */
+    .aug-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 24px; }
+    .aug-card { border: 1px solid var(--border); padding: 14px; background: var(--bg2); }
+    .aug-card h4 { font-size: 11px; font-weight: 700; color: var(--text); margin-bottom: 10px; padding-bottom: 7px; border-bottom: 1px solid var(--border); letter-spacing: 0.02em; }
+    .aug-item { display: flex; align-items: flex-start; gap: 7px; margin-bottom: 6px; font-size: 11px; color: var(--muted); line-height: 1.4; }
+    .aug-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .d-red { background: var(--red); }
+    .d-blue { background: var(--egress); }
+    .d-amber { background: var(--ltv); }
+    .d-green { background: var(--nav); }
 
-    .aug-flow { display: flex; align-items: center; gap: 0; margin-top: 28px; }
-    .aug-flow-step { flex: 1; padding: 14px 12px; background: var(--bg2); border: 1px solid var(--border); border-right: none; text-align: center; position: relative; }
-    .aug-flow-step:first-child { border-radius: var(--radius) 0 0 var(--radius); }
-    .aug-flow-step:last-child { border-right: 1px solid var(--border); border-radius: 0 var(--radius) var(--radius) 0; }
+    .aug-flow { display: flex; align-items: stretch; }
+    .afs { flex: 1; padding: 14px 12px; background: var(--bg2); border: 1px solid var(--border); border-right: none; position: relative; text-align: center; }
+    .afs:last-child { border-right: 1px solid var(--border); }
     .afs-label { font-size: 10px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
-    .afs-val { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--blue); }
+    .afs-val { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--red); }
     .afs-sub { font-size: 10px; color: var(--dim); margin-top: 2px; }
-    .afs-arrow { position: absolute; right: -10px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background: var(--text); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; z-index: 1; }
+    .afs-arr { position: absolute; right: -9px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; background: var(--text); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; z-index: 1; }
 
     /* PIPELINE */
-    .pipeline { display: flex; margin-top: 8px; }
-    .pipe-step { flex: 1; padding: 20px 16px; background: var(--bg2); border: 1px solid var(--border); border-right: none; position: relative; }
-    .pipe-step:first-child { border-radius: var(--radius) 0 0 var(--radius); }
-    .pipe-step:last-child { border-right: 1px solid var(--border); border-radius: 0 var(--radius) var(--radius) 0; }
-    .pipe-num { font-family: var(--mono); font-size: 10px; font-weight: 700; color: var(--blue); margin-bottom: 7px; }
-    .pipe-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+    .pipeline { display: flex; }
+    .pipe { flex: 1; padding: 18px 14px; background: var(--bg2); border: 1px solid var(--border); border-right: none; position: relative; }
+    .pipe:last-child { border-right: 1px solid var(--border); }
+    .pipe-num { font-family: var(--mono); font-size: 9px; font-weight: 700; color: var(--red); margin-bottom: 6px; letter-spacing: 0.1em; }
+    .pipe-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
     .pipe-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
-    .pipe-arr { position: absolute; right: -11px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; background: var(--blue); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; z-index: 1; }
+    .pipe-arr { position: absolute; right: -9px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; z-index: 1; }
 
-    /* GEMINI MODEL */
-    .model-section { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+    /* MODEL */
+    .model-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
     .model-intro h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
     .model-intro p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
-    .model-badge-row { display: flex; flex-wrap: wrap; gap: 6px; }
-    .model-comparison { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); margin-top: 20px; }
-    .mc-head { background: var(--text); color: #fff; padding: 10px 16px; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.05em; }
-    .mc-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-    .mc-table th { font-size: 10px; font-weight: 700; color: var(--dim); letter-spacing: 0.07em; text-transform: uppercase; padding: 9px 14px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg2); }
-    .mc-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--muted); font-family: var(--mono); font-size: 11px; }
-    .mc-table tr:last-child td { border-bottom: none; }
-    .mc-table tr:hover td { background: var(--bg2); }
-    .mc-rec { background: var(--blue-light) !important; }
-    .mc-rec td { color: var(--blue-dark) !important; font-weight: 700; }
-    .rec-b { background: var(--blue); color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 20px; font-family: var(--sans); font-weight: 700; margin-left: 6px; }
-    .model-specs { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
-    .ms-head { background: var(--text); color: #fff; padding: 10px 16px; font-family: var(--mono); font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
-    .ms-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
-    .ms-row { display: flex; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--border); }
-    .ms-row:last-child { border-bottom: none; }
-    .ms-row:nth-child(even) { background: var(--bg2); }
-    .ms-key { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; width: 130px; flex-shrink: 0; }
-    .ms-val { font-family: var(--mono); font-size: 12px; color: var(--text); }
-    .v-green { color: var(--green); font-weight: 700; }
-    .v-blue  { color: var(--blue);  font-weight: 700; }
-    .v-amber { color: var(--amber); font-weight: 700; }
+    .model-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .model-table-wrap { border: 1px solid var(--border); margin-top: 16px; }
+    .mt-head { background: var(--text); color: #fff; padding: 8px 14px; font-family: var(--mono); font-size: 11px; font-weight: 600; }
+    .mt-row { display: flex; align-items: center; padding: 9px 14px; border-bottom: 1px solid var(--border); }
+    .mt-row:last-child { border-bottom: none; }
+    .mt-row:nth-child(even) { background: var(--bg2); }
+    .mt-key { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; width: 120px; flex-shrink: 0; }
+    .mt-val { font-family: var(--mono); font-size: 11px; color: var(--text); }
+    .v-red { color: var(--red); font-weight: 700; }
+    .v-green { color: var(--nav); font-weight: 700; }
+    .v-blue { color: var(--egress); font-weight: 700; }
+    .v-amber { color: var(--ltv); font-weight: 700; }
 
-    /* LEADERBOARD */
-    .fetch-bar { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg2); margin-bottom: 20px; font-size: 13px; color: var(--muted); }
+    .model-specs { border: 1px solid var(--border); }
+    .ms-head { background: var(--text); color: #fff; padding: 8px 14px; font-family: var(--mono); font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    .ms-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
+
+    /* RESULTS */
+    .fetch-bar { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border: 1px solid var(--border); background: var(--bg2); margin-bottom: 18px; font-size: 13px; color: var(--muted); }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .spinner { width: 14px; height: 14px; border: 2px solid var(--border2); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-    .chip { font-family: var(--mono); font-size: 11px; padding: 3px 10px; background: var(--blue-light); color: var(--blue-dark); border-radius: 20px; border: 1px solid var(--blue-mid); }
+    .spinner { width: 13px; height: 13px; border: 2px solid var(--border2); border-top-color: var(--red); border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .chip { font-family: var(--mono); font-size: 11px; padding: 2px 9px; background: var(--red-light); color: var(--red); border: 1px solid var(--red-mid); }
 
-    .lb-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
-    .lb-head { background: var(--text); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
-    .lb-title { font-family: var(--mono); font-size: 12px; color: #fff; font-weight: 500; }
-    .lb-meta  { font-family: var(--mono); font-size: 11px; color: #64748b; }
+    /* PHASE SUMMARY */
+    .phase-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 20px; }
+    .ps-card { padding: 16px; text-align: center; border: 1px solid var(--border); border-top: 3px solid var(--border); }
+    .ps-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 7px; }
+    .ps-score { font-family: var(--mono); font-size: 1.5rem; font-weight: 700; }
+    .ps-n { font-family: var(--mono); font-size: 10px; color: var(--dim); margin-top: 3px; }
+    .ps-e { border-top-color: var(--egress); } .ps-e .ps-label,.ps-e .ps-score { color: var(--egress); }
+    .ps-n2 { border-top-color: var(--nav); }   .ps-n2 .ps-label,.ps-n2 .ps-score { color: var(--nav); }
+    .ps-l { border-top-color: var(--ltv); }    .ps-l .ps-label,.ps-l .ps-score { color: var(--ltv); }
 
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    /* RESULTS TABLE */
+    .results-card { border: 1px solid var(--border); }
+    .rc-head { background: var(--text); padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; }
+    .rc-title { font-family: var(--mono); font-size: 11px; color: #fff; font-weight: 600; }
+    .rc-meta { font-family: var(--mono); font-size: 10px; color: #999; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
     thead tr { background: var(--bg2); }
-    th { font-size: 10px; font-weight: 700; color: var(--dim); letter-spacing: 0.07em; text-transform: uppercase; padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    th { font-size: 10px; font-weight: 700; color: var(--dim); letter-spacing: 0.07em; text-transform: uppercase; padding: 9px 14px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
     th.r, td.r { text-align: right; }
-    td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: middle; }
+    td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: var(--bg2); }
     .model-name { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--text); }
-    .model-date { font-size: 11px; color: var(--dim); margin-top: 2px; }
-    .score-main { font-family: var(--mono); font-weight: 700; color: var(--blue); font-size: 14px; }
-    .bar-wrap { display: flex; align-items: center; gap: 8px; }
-    .bar-bg { flex: 1; min-width: 50px; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: 3px; }
+    .model-date { font-size: 10px; color: var(--dim); margin-top: 2px; }
+    .score-main { font-family: var(--mono); font-weight: 700; color: var(--red); font-size: 14px; }
+    .bar-wrap { display: flex; align-items: center; gap: 7px; }
+    .bar-bg { flex: 1; min-width: 50px; height: 5px; background: var(--bg3); }
+    .bar-fill { height: 100%; }
     .bf-e { background: var(--egress); } .bf-n { background: var(--nav); } .bf-l { background: var(--ltv); }
-    .bar-num { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 38px; text-align: right; }
-    .empty-state { padding: 48px; text-align: center; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); }
+    .bar-num { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 36px; text-align: right; }
+    .empty-state { padding: 48px; text-align: center; background: var(--bg2); border: 1px solid var(--border); }
     .empty-state p { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
     .empty-state small { font-family: var(--mono); font-size: 11px; color: var(--dim); }
 
-    /* PHASE SUMMARY */
-    .phase-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 24px; }
-    .ps-card { border-radius: var(--radius); padding: 18px 16px; text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow); }
-    .ps-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-    .ps-score { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; }
-    .ps-n { font-family: var(--mono); font-size: 10px; color: var(--dim); margin-top: 4px; }
-    .ps-e { border-top: 3px solid var(--egress); } .ps-e .ps-label,.ps-e .ps-score { color: var(--egress); }
-    .ps-n2 { border-top: 3px solid var(--nav); }   .ps-n2 .ps-label,.ps-n2 .ps-score { color: var(--nav); }
-    .ps-l { border-top: 3px solid var(--ltv); }    .ps-l .ps-label,.ps-l .ps-score { color: var(--ltv); }
-
-    /* CONFUSION MATRIX */
-    .cm-wrap { display: flex; gap: 36px; flex-wrap: wrap; align-items: flex-start; }
-    .cm-picker { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    /* CONFUSION MATRIX - matplotlib style */
+    .cm-outer-wrap { display: flex; gap: 28px; flex-wrap: wrap; align-items: flex-start; }
+    .cm-picker { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
     .cm-picker label { font-size: 12px; font-weight: 600; color: var(--muted); }
-    .cm-picker select { font-family: var(--mono); font-size: 12px; padding: 6px 10px; border: 1px solid var(--border2); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); }
-    .cm-top-lbl { font-size: 10px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; text-align: center; margin-bottom: 6px; margin-left: 80px; }
+    .cm-picker select { font-family: var(--mono); font-size: 12px; padding: 5px 9px; border: 1px solid var(--border2); background: var(--bg); color: var(--text); }
+    .cm-top-lbl { font-size: 11px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; text-align: center; margin-bottom: 5px; margin-left: 72px; }
     .cm-row-wrap { display: flex; align-items: center; }
-    .cm-left-lbl { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 8px; white-space: nowrap; }
-    .cm-grid { display: grid; grid-template-columns: 80px repeat(3,84px); grid-template-rows: 28px repeat(3,84px); border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
-    .cm-corner { background: var(--bg2); border-right: 1px solid var(--border2); border-bottom: 1px solid var(--border2); }
-    .cm-col-head { background: var(--text); color: #fff; font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: 0.06em; display: flex; align-items: center; justify-content: center; border-right: 1px solid #334155; border-bottom: 1px solid var(--border2); }
-    .cm-col-head:last-child { border-right: none; }
-    .cm-row-head { background: var(--text); color: #fff; font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: 0.04em; display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.3; border-right: 1px solid var(--border2); border-bottom: 1px solid #334155; padding: 0 6px; }
-    .cm-row-head:last-of-type { border-bottom: none; }
-    .cm-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); transition: background 0.2s; }
-    .cm-cell:nth-child(4n) { border-right: none; }
-    .cm-cell:nth-last-child(-n+3) { border-bottom: none; }
-    .cm-val { font-family: var(--mono); font-size: 1.1rem; font-weight: 700; }
-    .cm-pct { font-family: var(--mono); font-size: 10px; margin-top: 2px; }
-    .cm-legend { flex: 1; min-width: 190px; }
-    .cm-legend h4 { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
-    .leg-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
-    .leg-sw { width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; border: 1px solid var(--border); }
-    .leg-txt { font-size: 12px; color: var(--muted); line-height: 1.4; }
-    .cm-note { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--dim); line-height: 1.9; }
+    .cm-left-lbl { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 11px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 7px; white-space: nowrap; }
+    .cm-grid {
+      display: grid;
+      grid-template-columns: 72px repeat(3, 88px);
+      grid-template-rows: 28px repeat(3, 88px);
+      border: 1px solid #aaa;
+    }
+    .cm-corner { background: #fff; }
+    .cm-col-head {
+      background: #fff; color: var(--text);
+      font-family: var(--sans); font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      border-bottom: 1px solid #aaa; border-left: 1px solid #aaa;
+    }
+    .cm-row-head {
+      background: #fff; color: var(--text);
+      font-family: var(--sans); font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; line-height: 1.3;
+      border-top: 1px solid #aaa; border-right: 1px solid #aaa;
+      padding: 0 5px;
+    }
+    .cm-cell {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border-top: 1px solid #aaa; border-left: 1px solid #aaa;
+      cursor: default;
+    }
+    .cm-val { font-family: var(--sans); font-size: 1rem; font-weight: 700; }
+    .cm-pct { font-family: var(--sans); font-size: 11px; margin-top: 1px; }
+
+    /* Colorbar */
+    .cm-colorbar-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; padding-top: 33px; }
+    .cm-colorbar { width: 18px; height: 264px; border: 1px solid #aaa; background: linear-gradient(to bottom, #08306b, #2171b5, #6baed6, #c6dbef, #f7fbff); }
+    .cm-cb-labels { display: flex; flex-direction: column; justify-content: space-between; height: 264px; }
+    .cm-cb-label { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+    .cm-cb-title { font-size: 10px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; writing-mode: vertical-rl; transform: rotate(180deg); margin-left: 4px; }
+    .cm-note { margin-top: 16px; font-family: var(--mono); font-size: 10px; color: var(--dim); line-height: 1.9; }
 
     /* CONFIDENCE */
-    .conf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .conf-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; background: var(--bg2); box-shadow: var(--shadow); }
-    .conf-card h4 { font-size: 11px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; }
-    .tier-row { display: flex; align-items: center; gap: 10px; margin-bottom: 13px; }
-    .tier-lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); width: 76px; flex-shrink: 0; }
-    .tier-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-    .tier-fill { height: 100%; border-radius: 3px; }
-    .tier-num { font-family: var(--mono); font-size: 11px; color: var(--muted); width: 32px; text-align: right; }
-    .prompt-box { font-family: var(--mono); font-size: 11px; color: var(--muted); background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; line-height: 1.9; }
-    .pk { color: var(--blue); font-weight: 700; }
+    .conf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .conf-card { border: 1px solid var(--border); padding: 18px; background: var(--bg2); }
+    .conf-card h4 { font-size: 10px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+    .tier-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .tier-lbl { font-family: var(--mono); font-size: 10px; color: var(--muted); width: 76px; flex-shrink: 0; }
+    .tier-track { flex: 1; height: 5px; background: var(--border); }
+    .tier-fill { height: 100%; }
+    .tier-num { font-family: var(--mono); font-size: 10px; color: var(--muted); width: 32px; text-align: right; }
+    .prompt-box { font-family: var(--mono); font-size: 11px; color: var(--muted); background: var(--bg); border: 1px solid var(--border); padding: 13px; line-height: 1.9; }
+    .pk { color: var(--red); font-weight: 700; }
 
     /* CITATION */
-    .cite-box { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; background: var(--bg2); font-family: var(--mono); font-size: 12px; color: var(--muted); line-height: 1.9; position: relative; box-shadow: var(--shadow); }
-    .cite-copy { position: absolute; top: 12px; right: 12px; font-family: var(--mono); font-size: 11px; color: var(--muted); background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 3px 10px; cursor: pointer; }
-    .cite-copy:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .cite-box { border: 1px solid var(--border); padding: 18px 22px; background: var(--bg2); font-family: var(--mono); font-size: 11px; color: var(--muted); line-height: 1.9; position: relative; }
+    .cite-copy { position: absolute; top: 11px; right: 11px; font-family: var(--mono); font-size: 10px; color: var(--muted); background: var(--bg); border: 1px solid var(--border); padding: 2px 8px; cursor: pointer; font-weight: 700; }
+    .cite-copy:hover { background: var(--text); color: #fff; }
 
     /* FOOTER */
-    footer { background: var(--text); padding: 28px 2.5rem; display: flex; justify-content: space-between; align-items: center; }
-    .footer-left { font-family: var(--mono); font-size: 12px; color: #64748b; }
+    footer { border-top: 2px solid var(--text); background: var(--text); padding: 22px 2.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-left { font-family: var(--mono); font-size: 11px; color: #666; }
     .footer-links { display: flex; gap: 20px; list-style: none; }
-    .footer-links a { font-size: 12px; color: #64748b; text-decoration: none; }
+    .footer-links a { font-size: 11px; color: #666; text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; }
     .footer-links a:hover { color: #fff; }
 
     @media (max-width: 720px) {
-      .phase-grid, .conf-grid, .phase-summary, .model-section, .aug-diagram { grid-template-columns: 1fr; }
+      .phase-grid, .conf-grid, .phase-summary, .model-grid, .aug-grid { grid-template-columns: 1fr; }
       .pipeline, .aug-flow { flex-direction: column; }
-      .pipe-arr, .afs-arrow { display: none; }
-      .cm-wrap { flex-direction: column; }
+      .pipe-arr, .afs-arr { display: none; }
+      .cm-outer-wrap { flex-direction: column; }
       .nav-links { display: none; }
-      footer { flex-direction: column; gap: 14px; }
+      footer { flex-direction: column; gap: 12px; }
     }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-brand">
-    <span class="nav-logo">EVA VLM <span class="accent">State Evaluator</span></span>
-    <span class="nav-v">v0.1</span>
-  </div>
+  <span class="nav-logo">EVA VLM State Evaluator<span class="slash">/</span>NASA SUITS</span>
   <ul class="nav-links">
     <li><a href="#phases">Phases</a></li>
     <li><a href="#augmentation">Augmentation</a></li>
     <li><a href="#model">Model</a></li>
-    <li><a href="#leaderboard">Leaderboard</a></li>
+    <li><a href="#results">Results</a></li>
     <li><a href="#confusion">Confusion</a></li>
     <li><a href="#citation">Cite</a></li>
   </ul>
-  <a href="https://github.com/rodrigoagallardo008/EVA-VLM-Evaluator" class="nav-gh" target="_blank">GitHub</a>
+  <a href="https://github.com/rodrigoagallardo008/EVA-VLM-Evaluator" class="nav-gh" target="_blank">GitHub →</a>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tags">
-    <span class="tag-pill tp-amber">NASA SUITS</span>
-    <span class="tag-pill tp-blue">VLM Evaluation</span>
-    <span class="tag-pill tp-green">EVA State Detection</span>
-    <span class="tag-pill tp-purple">Zero-Shot</span>
-    <span class="tag-pill tp-slate">Gemini 2.5</span>
+  <p class="hero-kicker">NASA SUITS · VLM Evaluation · 2025</p>
+  <h1>EVA VLM<br><span class="hero-line">State Evaluator</span></h1>
+  <p class="hero-abstract">Benchmarking vision-language model performance on astronaut state detection during Extravehicular Activity. Images from the NASA SUITS program are augmented and used to probe Gemini's accuracy and confidence calibration across three EVA operational phases in a zero-shot setting.</p>
+  <div class="tag-row">
+    <span class="tag tag-red">NASA SUITS</span>
+    <span class="tag">VLM Evaluation</span>
+    <span class="tag">EVA State Detection</span>
+    <span class="tag">Zero-Shot</span>
+    <span class="tag">Gemini 2.5</span>
   </div>
-  <h1>EVA VLM <span class="hl">State Evaluator</span></h1>
-  <p class="hero-sub">Benchmarking vision-language model performance on astronaut EVA phase classification</p>
-  <p class="hero-abstract">
-    A benchmark for evaluating vision-language model performance on astronaut state detection during Extravehicular Activity. Images from the NASA SUITS program are augmented across three EVA operational phases — Egress, Navigation, and LTV Repair — and used to probe model accuracy and confidence calibration under controlled distribution shift using Google Gemini in a zero-shot setting.
-  </p>
   <div class="btn-row">
-    <a href="#leaderboard" class="btn btn-primary">View Results</a>
+    <a href="#results" class="btn btn-primary">View Results</a>
     <a href="https://github.com/rodrigoagallardo008/EVA-VLM-Evaluator" class="btn btn-outline" target="_blank">GitHub</a>
   </div>
 </div>
@@ -316,7 +294,7 @@
     <div class="stat"><span class="stat-num">3</span><span class="stat-label">EVA Phases</span></div>
     <div class="stat"><span class="stat-num" id="stat-sources">9+</span><span class="stat-label">Source Images</span></div>
     <div class="stat"><span class="stat-num" id="stat-aug">130+</span><span class="stat-label">Augmented</span></div>
-    <div class="stat"><span class="stat-num" id="stat-models">—</span><span class="stat-label">Models Evaluated</span></div>
+    <div class="stat"><span class="stat-num" id="stat-models">—</span><span class="stat-label">Runs</span></div>
     <div class="stat"><span class="stat-num" id="stat-best">—</span><span class="stat-label">Best Accuracy</span></div>
   </div>
 </div>
@@ -325,59 +303,48 @@
 
   <!-- PHASES -->
   <section id="phases">
-    <p class="eyebrow">Benchmark Design</p>
+    <p class="sec-label">01 / Benchmark Design</p>
     <h2>Three-Phase EVA Classification</h2>
     <p class="sec-desc">Each image is labeled with one of three EVA operational phases. The VLM predicts the phase and returns a confidence score. Augmented variants stress-test robustness to lighting, orientation, occlusion, and scale variation.</p>
 
     <div class="phase-grid">
       <div class="phase-card">
         <div class="phase-img-wrap">
-          <img src="assets/images/phase_egress.jpg" alt="Egress"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="assets/images/phase_egress.jpg" alt="Egress" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="phase-no-img" style="display:none">NO IMAGE</div>
           <div class="phase-overlay ov-e">Phase 01 · Egress</div>
         </div>
         <div class="phase-body">
           <p class="phase-num">PHASE 01</p>
           <p class="phase-name pn-e">EGRESS</p>
-          <p class="phase-desc">Astronaut exits the airlock and transitions to the external environment. Equipment checks, suit pressurization, and initial positioning are key visual indicators.</p>
-          <div class="phase-tags">
-            <span class="ptag">suit-check</span><span class="ptag">airlock</span><span class="ptag">close-range</span><span class="ptag">setup</span>
-          </div>
+          <p class="phase-desc">Astronaut exits the airlock, equipment checks, suit pressurization, and initial positioning.</p>
+          <div class="phase-tags"><span class="ptag">suit-check</span><span class="ptag">airlock</span><span class="ptag">uia</span><span class="ptag">setup</span></div>
         </div>
       </div>
-
       <div class="phase-card">
         <div class="phase-img-wrap">
-          <img src="assets/images/phase_navigation.jpg" alt="Navigation"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="assets/images/phase_navigation.jpg" alt="Navigation" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="phase-no-img" style="display:none">NO IMAGE</div>
           <div class="phase-overlay ov-n">Phase 02 · Navigation</div>
         </div>
         <div class="phase-body">
           <p class="phase-num">PHASE 02</p>
           <p class="phase-name pn-n">NAVIGATION</p>
-          <p class="phase-desc">Crew traversing surface or worksite. Navigation panel interaction, ANAV block/RTH commands, LiDAR and comms status visible from bird's-eye and close-up views.</p>
-          <div class="phase-tags">
-            <span class="ptag">nav-panel</span><span class="ptag">anav</span><span class="ptag">birds-eye</span><span class="ptag">lidar</span>
-          </div>
+          <p class="phase-desc">Crew traversing surface or worksite. Nav panel, ANAV block/RTH, LiDAR and comms status.</p>
+          <div class="phase-tags"><span class="ptag">nav-panel</span><span class="ptag">anav</span><span class="ptag">birds-eye</span><span class="ptag">lidar</span></div>
         </div>
       </div>
-
       <div class="phase-card">
         <div class="phase-img-wrap">
-          <img src="assets/images/phase_ltv_repair.jpg" alt="LTV Repair"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="assets/images/phase_ltv_repair.jpg" alt="LTV Repair" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="phase-no-img" style="display:none">NO IMAGE</div>
           <div class="phase-overlay ov-l">Phase 03 · LTV Repair</div>
         </div>
         <div class="phase-body">
           <p class="phase-num">PHASE 03</p>
           <p class="phase-name pn-l">LTV REPAIR</p>
-          <p class="phase-desc">Lunar Terrain Vehicle maintenance. Fuse box access, science management systems, PDD, and component-level hardware interaction distinguish this phase.</p>
-          <div class="phase-tags">
-            <span class="ptag">fuse-box</span><span class="ptag">pdd</span><span class="ptag">close-up</span><span class="ptag">hardware</span>
-          </div>
+          <p class="phase-desc">Lunar Terrain Vehicle maintenance. Fuse box, science management, PDD hardware interaction.</p>
+          <div class="phase-tags"><span class="ptag">fuse-box</span><span class="ptag">pdd</span><span class="ptag">close-up</span><span class="ptag">hardware</span></div>
         </div>
       </div>
     </div>
@@ -385,134 +352,87 @@
 
   <!-- AUGMENTATION -->
   <section id="augmentation">
-    <p class="eyebrow">Augmentation</p>
+    <p class="sec-label">02 / Augmentation</p>
     <h2>Data Augmentation Pipeline</h2>
-    <p class="sec-desc">Source images are augmented using four categories of transformation to expand the dataset and stress-test model robustness. Each source image produces N configurable copies with randomized parameters.</p>
+    <p class="sec-desc">Source images are augmented using four categories of transformation to expand the dataset and stress-test model robustness under distribution shift.</p>
 
-    <div class="aug-diagram">
+    <div class="aug-grid">
       <div class="aug-card">
         <h4>Geometric</h4>
-        <div class="aug-item">Horizontal / vertical flip</div>
-        <div class="aug-item">Random rotation ±25°</div>
-        <div class="aug-item">Random crop (78–95%)</div>
-        <div class="aug-item">Translation shift</div>
+        <div class="aug-item"><span class="aug-dot d-red"></span>Horizontal / vertical flip</div>
+        <div class="aug-item"><span class="aug-dot d-red"></span>Random rotation ±25°</div>
+        <div class="aug-item"><span class="aug-dot d-red"></span>Random crop (78–95%)</div>
+        <div class="aug-item"><span class="aug-dot d-red"></span>Translation shift</div>
       </div>
       <div class="aug-card">
         <h4>Photometric</h4>
-        <div class="aug-item">Brightness &amp; contrast jitter</div>
-        <div class="aug-item">Color saturation shift</div>
-        <div class="aug-item">Gaussian blur</div>
-        <div class="aug-item">Stochastic grayscale</div>
+        <div class="aug-item"><span class="aug-dot d-blue"></span>Brightness &amp; contrast jitter</div>
+        <div class="aug-item"><span class="aug-dot d-blue"></span>Color saturation shift</div>
+        <div class="aug-item"><span class="aug-dot d-blue"></span>Gaussian blur</div>
+        <div class="aug-item"><span class="aug-dot d-blue"></span>Stochastic grayscale</div>
       </div>
       <div class="aug-card">
         <h4>Masking</h4>
-        <div class="aug-item">Cutout patch (black)</div>
-        <div class="aug-item">Random erasing</div>
-        <div class="aug-item">GridMask</div>
-        <div class="aug-item">Randomized patch size</div>
+        <div class="aug-item"><span class="aug-dot d-amber"></span>Cutout patch (black)</div>
+        <div class="aug-item"><span class="aug-dot d-amber"></span>Random erasing</div>
+        <div class="aug-item"><span class="aug-dot d-amber"></span>GridMask</div>
+        <div class="aug-item"><span class="aug-dot d-amber"></span>Randomized patch size</div>
       </div>
       <div class="aug-card">
         <h4>Output</h4>
-        <div class="aug-item">512 – 2048 px resolution</div>
-        <div class="aug-item">Phase label preserved</div>
-        <div class="aug-item">manifest.json generated</div>
-        <div class="aug-item">JPEG quality 90–95</div>
+        <div class="aug-item"><span class="aug-dot d-green"></span>512 – 2048 px resolution</div>
+        <div class="aug-item"><span class="aug-dot d-green"></span>Phase label preserved</div>
+        <div class="aug-item"><span class="aug-dot d-green"></span>manifest.json generated</div>
+        <div class="aug-item"><span class="aug-dot d-green"></span>JPEG quality 90–95</div>
       </div>
     </div>
 
     <div class="aug-flow">
-      <div class="aug-flow-step">
-        <p class="afs-label">Source images</p>
-        <p class="afs-val">9</p>
-        <p class="afs-sub">across 3 phases</p>
-        <span class="afs-arrow">→</span>
-      </div>
-      <div class="aug-flow-step">
-        <p class="afs-label">Copies / image</p>
-        <p class="afs-val">10–20</p>
-        <p class="afs-sub">configurable</p>
-        <span class="afs-arrow">→</span>
-      </div>
-      <div class="aug-flow-step">
-        <p class="afs-label">Augmented total</p>
-        <p class="afs-val">90–180</p>
-        <p class="afs-sub">labeled images</p>
-        <span class="afs-arrow">→</span>
-      </div>
-      <div class="aug-flow-step">
-        <p class="afs-label">Resolution</p>
-        <p class="afs-val">1024 px</p>
-        <p class="afs-sub">default output</p>
-      </div>
+      <div class="afs"><p class="afs-label">Source images</p><p class="afs-val">9</p><p class="afs-sub">3 phases</p><span class="afs-arr">→</span></div>
+      <div class="afs"><p class="afs-label">Copies / image</p><p class="afs-val">10–20</p><p class="afs-sub">configurable</p><span class="afs-arr">→</span></div>
+      <div class="afs"><p class="afs-label">Augmented total</p><p class="afs-val">90–180</p><p class="afs-sub">labeled images</p><span class="afs-arr">→</span></div>
+      <div class="afs"><p class="afs-label">Resolution</p><p class="afs-val">1024 px</p><p class="afs-sub">default output</p></div>
     </div>
   </section>
 
   <!-- PIPELINE -->
   <section>
-    <p class="eyebrow">Pipeline</p>
+    <p class="sec-label">03 / Pipeline</p>
     <h2>Evaluation Pipeline</h2>
     <div class="pipeline">
-      <div class="pipe-step">
-        <p class="pipe-num">01</p>
-        <p class="pipe-title">Source Images</p>
-        <p class="pipe-desc">NASA SUITS images sorted into phase folders with ground truth labels</p>
-        <span class="pipe-arr">→</span>
-      </div>
-      <div class="pipe-step">
-        <p class="pipe-num">02</p>
-        <p class="pipe-title">Augmentation</p>
-        <p class="pipe-desc">Geometric, photometric, and masking transforms generate labeled variants</p>
-        <span class="pipe-arr">→</span>
-      </div>
-      <div class="pipe-step">
-        <p class="pipe-num">03</p>
-        <p class="pipe-title">Gemini Inference</p>
-        <p class="pipe-desc">Model prompted zero-shot to predict EVA phase and return confidence score</p>
-        <span class="pipe-arr">→</span>
-      </div>
-      <div class="pipe-step">
-        <p class="pipe-num">04</p>
-        <p class="pipe-title">Scoring</p>
-        <p class="pipe-desc">Per-phase accuracy, confusion matrix, and confidence calibration reported</p>
-      </div>
+      <div class="pipe"><p class="pipe-num">01</p><p class="pipe-title">Source Images</p><p class="pipe-desc">NASA SUITS images sorted into phase folders with ground truth labels</p><span class="pipe-arr">→</span></div>
+      <div class="pipe"><p class="pipe-num">02</p><p class="pipe-title">Augmentation</p><p class="pipe-desc">Geometric, photometric, and masking transforms generate labeled variants</p><span class="pipe-arr">→</span></div>
+      <div class="pipe"><p class="pipe-num">03</p><p class="pipe-title">Gemini Inference</p><p class="pipe-desc">Model prompted zero-shot to predict EVA phase and return confidence score</p><span class="pipe-arr">→</span></div>
+      <div class="pipe"><p class="pipe-num">04</p><p class="pipe-title">Scoring</p><p class="pipe-desc">Per-phase accuracy, confusion matrix, and confidence calibration reported</p></div>
     </div>
   </section>
 
   <!-- MODEL -->
   <section id="model">
-    <p class="eyebrow">Evaluation Model</p>
+    <p class="sec-label">04 / Evaluation Model</p>
     <h2>Google Gemini</h2>
-    <p class="sec-desc">All evaluations use the Google Gemini API in a zero-shot setting — no fine-tuning or few-shot examples. The model receives raw augmented images and must classify the EVA phase purely from visual context.</p>
+    <p class="sec-desc">All evaluations use the Google Gemini API in a zero-shot setting — no fine-tuning or few-shot examples. The model receives raw augmented images and classifies the EVA phase from visual context alone.</p>
 
-    <div class="model-section">
+    <div class="model-grid">
       <div>
         <div class="model-intro">
           <h3>Gemini 2.5 Flash — Recommended</h3>
-          <p>Google's best price-performance model for vision tasks. Features native multimodal understanding, 1M token context, and built-in reasoning. Well-suited for batch evaluation of image classification tasks at scale.</p>
-          <div class="model-badge-row">
-            <span class="tag-pill tp-green">Vision</span>
-            <span class="tag-pill tp-blue">Reasoning</span>
-            <span class="tag-pill tp-purple">Multimodal</span>
-            <span class="tag-pill tp-slate">Google AI Studio</span>
+          <p>Google's best price-performance model for vision tasks. Features native multimodal understanding, 1M token context, and built-in reasoning capabilities for batch evaluation at scale.</p>
+          <div class="model-tags">
+            <span class="tag tag-red">Vision</span>
+            <span class="tag">Reasoning</span>
+            <span class="tag">Multimodal</span>
+            <span class="tag">Google AI Studio</span>
           </div>
         </div>
-        <div class="model-comparison">
-          <div class="mc-head">Supported Models</div>
-          <table class="mc-table">
+        <div class="model-table-wrap">
+          <div class="mt-head">Supported Models</div>
+          <table>
             <thead><tr><th>Model</th><th>Input</th><th>Output</th><th>Context</th></tr></thead>
             <tbody>
-              <tr class="mc-rec">
-                <td>gemini-2.5-flash <span class="rec-b">recommended</span></td>
-                <td>$0.30/M</td><td>$2.50/M</td><td>1M tok</td>
-              </tr>
-              <tr>
-                <td>gemini-2.5-flash-lite</td>
-                <td>$0.10/M</td><td>$0.40/M</td><td>1M tok</td>
-              </tr>
-              <tr>
-                <td>gemini-2.5-pro</td>
-                <td>$1.25/M</td><td>$10.00/M</td><td>1M tok</td>
-              </tr>
+              <tr style="background:var(--red-light)"><td style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--red);">gemini-2.5-flash ★</td><td style="font-family:var(--mono);font-size:11px;">$0.30/M</td><td style="font-family:var(--mono);font-size:11px;">$2.50/M</td><td style="font-family:var(--mono);font-size:11px;">1M tok</td></tr>
+              <tr><td style="font-family:var(--mono);font-size:11px;">gemini-2.5-flash-lite</td><td style="font-family:var(--mono);font-size:11px;">$0.10/M</td><td style="font-family:var(--mono);font-size:11px;">$0.40/M</td><td style="font-family:var(--mono);font-size:11px;">1M tok</td></tr>
+              <tr><td style="font-family:var(--mono);font-size:11px;">gemini-2.5-pro</td><td style="font-family:var(--mono);font-size:11px;">$1.25/M</td><td style="font-family:var(--mono);font-size:11px;">$10.00/M</td><td style="font-family:var(--mono);font-size:11px;">1M tok</td></tr>
             </tbody>
           </table>
         </div>
@@ -520,28 +440,28 @@
 
       <div class="model-specs">
         <div class="ms-head"><span class="ms-dot"></span>gemini-2.5-flash · Specs</div>
-        <div class="ms-row"><span class="ms-key">Released</span><span class="ms-val">June 17, 2025</span></div>
-        <div class="ms-row"><span class="ms-key">Developer</span><span class="ms-val">Google DeepMind</span></div>
-        <div class="ms-row"><span class="ms-key">Context</span><span class="ms-val v-blue">1,048,576 tokens</span></div>
-        <div class="ms-row"><span class="ms-key">Max output</span><span class="ms-val">65,536 tokens</span></div>
-        <div class="ms-row"><span class="ms-key">Input types</span><span class="ms-val v-green">Text · Image · Audio · Video</span></div>
-        <div class="ms-row"><span class="ms-key">Vision</span><span class="ms-val v-green">Native multimodal</span></div>
-        <div class="ms-row"><span class="ms-key">Reasoning</span><span class="ms-val v-green">Thinking mode</span></div>
-        <div class="ms-row"><span class="ms-key">Knowledge</span><span class="ms-val">Jan 2025 cutoff</span></div>
-        <div class="ms-row"><span class="ms-key">Speed</span><span class="ms-val">~197 tok/s</span></div>
-        <div class="ms-row"><span class="ms-key">TTFT</span><span class="ms-val">~0.62s</span></div>
-        <div class="ms-row"><span class="ms-key">Eval setting</span><span class="ms-val v-amber">Zero-shot · temp=0.1</span></div>
-        <div class="ms-row"><span class="ms-key">Input price</span><span class="ms-val">$0.30 / 1M tokens</span></div>
-        <div class="ms-row"><span class="ms-key">Output price</span><span class="ms-val">$2.50 / 1M tokens</span></div>
+        <div class="mt-row"><span class="mt-key">Released</span><span class="mt-val">June 17, 2025</span></div>
+        <div class="mt-row"><span class="mt-key">Developer</span><span class="mt-val">Google DeepMind</span></div>
+        <div class="mt-row"><span class="mt-key">Context</span><span class="mt-val v-blue">1,048,576 tokens</span></div>
+        <div class="mt-row"><span class="mt-key">Max output</span><span class="mt-val">65,536 tokens</span></div>
+        <div class="mt-row"><span class="mt-key">Input types</span><span class="mt-val v-green">Text · Image · Audio · Video</span></div>
+        <div class="mt-row"><span class="mt-key">Vision</span><span class="mt-val v-green">Native multimodal</span></div>
+        <div class="mt-row"><span class="mt-key">Reasoning</span><span class="mt-val v-green">Thinking mode</span></div>
+        <div class="mt-row"><span class="mt-key">Knowledge</span><span class="mt-val">Jan 2025 cutoff</span></div>
+        <div class="mt-row"><span class="mt-key">Speed</span><span class="mt-val">~197 tok/s</span></div>
+        <div class="mt-row"><span class="mt-key">TTFT</span><span class="mt-val">~0.62s</span></div>
+        <div class="mt-row"><span class="mt-key">Eval setting</span><span class="mt-val v-amber">Zero-shot · temp=0.1</span></div>
+        <div class="mt-row"><span class="mt-key">Input price</span><span class="mt-val">$0.30 / 1M tokens</span></div>
+        <div class="mt-row"><span class="mt-key">Output price</span><span class="mt-val">$2.50 / 1M tokens</span></div>
       </div>
     </div>
   </section>
 
-  <!-- LEADERBOARD -->
-  <section id="leaderboard">
-    <p class="eyebrow">Leaderboard</p>
-    <h2>Model Leaderboard</h2>
-    <p class="sec-desc">Results load automatically from committed <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;">results/*.json</code> files. To add a new run, run <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;">python publish_results.py</code> and push.</p>
+  <!-- RESULTS -->
+  <section id="results">
+    <p class="sec-label">05 / Results</p>
+    <h2>Evaluation Results</h2>
+    <p class="sec-desc">Results load automatically from committed <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;">results/*.json</code> files. To add a new run, use <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;">python publish_results.py</code> and push.</p>
 
     <div class="fetch-bar" id="fetch-bar">
       <span class="spinner" id="spinner"></span>
@@ -550,24 +470,12 @@
     <div class="chips" id="chips"></div>
 
     <div class="phase-summary" id="phase-summary" style="display:none">
-      <div class="ps-card ps-e">
-        <p class="ps-label">Egress</p>
-        <p class="ps-score" id="ps-egress">—</p>
-        <p class="ps-n" id="ps-egress-n">— images</p>
-      </div>
-      <div class="ps-card ps-n2">
-        <p class="ps-label">Navigation</p>
-        <p class="ps-score" id="ps-nav">—</p>
-        <p class="ps-n" id="ps-nav-n">— images</p>
-      </div>
-      <div class="ps-card ps-l">
-        <p class="ps-label">LTV Repair</p>
-        <p class="ps-score" id="ps-ltv">—</p>
-        <p class="ps-n" id="ps-ltv-n">— images</p>
-      </div>
+      <div class="ps-card ps-e"><p class="ps-label">Egress</p><p class="ps-score" id="ps-egress">—</p><p class="ps-n" id="ps-egress-n">— images</p></div>
+      <div class="ps-card ps-n2"><p class="ps-label">Navigation</p><p class="ps-score" id="ps-nav">—</p><p class="ps-n" id="ps-nav-n">— images</p></div>
+      <div class="ps-card ps-l"><p class="ps-label">LTV Repair</p><p class="ps-score" id="ps-ltv">—</p><p class="ps-n" id="ps-ltv-n">— images</p></div>
     </div>
 
-    <div id="lb-wrap">
+    <div id="results-wrap">
       <div class="empty-state">
         <p>No results committed yet.</p>
         <small>Run evaluate.py → python publish_results.py → git push</small>
@@ -577,18 +485,16 @@
 
   <!-- CONFUSION MATRIX -->
   <section id="confusion">
-    <p class="eyebrow">Confusion Matrix</p>
+    <p class="sec-label">06 / Confusion Matrix</p>
     <h2>Predicted vs. Ground Truth</h2>
-    <p class="sec-desc">Select a run to visualize its confusion matrix. Diagonal cells show correct predictions. Off-diagonal shading encodes misclassification rate — darker means more errors.</p>
+    <p class="sec-desc">Diagonal cells show correct predictions. Off-diagonal shading encodes misclassification rate. Select a run to populate.</p>
 
     <div class="cm-picker">
       <label>Run:</label>
-      <select id="cm-sel" onchange="renderCM()">
-        <option value="">— no results yet —</option>
-      </select>
+      <select id="cm-sel" onchange="renderCM()"><option value="">— no results yet —</option></select>
     </div>
 
-    <div class="cm-wrap">
+    <div class="cm-outer-wrap">
       <div>
         <p class="cm-top-lbl">Predicted Label</p>
         <div class="cm-row-wrap">
@@ -612,19 +518,19 @@
             <div class="cm-cell" id="cm-22"><span class="cm-val" style="color:var(--dim)">—</span><span class="cm-pct" style="color:var(--dim)">—</span></div>
           </div>
         </div>
+        <div class="cm-note" style="margin-left:79px;">
+          Rows = ground truth · Columns = predicted · Values: count (row %)</div>
       </div>
 
-      <div class="cm-legend">
-        <h4>Legend</h4>
-        <div class="leg-row"><div class="leg-sw" style="background:#1e3a5f;border-color:#1e3a5f;"></div><span class="leg-txt">Correct prediction (diagonal) — high values = strong accuracy</span></div>
-        <div class="leg-row"><div class="leg-sw" style="background:var(--blue-light);"></div><span class="leg-txt">Low confusion — rare misclassification</span></div>
-        <div class="leg-row"><div class="leg-sw" style="background:var(--blue-mid);"></div><span class="leg-txt">Moderate confusion — occasional conflation</span></div>
-        <div class="leg-row"><div class="leg-sw" style="background:var(--blue);"></div><span class="leg-txt">High confusion — significant misclassification</span></div>
-        <div class="cm-note">
-          Rows = ground truth label<br>
-          Columns = model prediction<br>
-          Each row sums to total images in that class<br>
-          Values: count · row-normalized %
+      <!-- Colorbar -->
+      <div style="display:flex;align-items:flex-start;gap:6px;padding-top:33px;">
+        <div class="cm-colorbar"></div>
+        <div style="display:flex;flex-direction:column;justify-content:space-between;height:264px;">
+          <span style="font-family:var(--mono);font-size:10px;color:var(--dim);">1.00</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--dim);">0.75</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--dim);">0.50</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--dim);">0.25</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--dim);">0.00</span>
         </div>
       </div>
     </div>
@@ -632,27 +538,15 @@
 
   <!-- CONFIDENCE -->
   <section>
-    <p class="eyebrow">Confidence Thresholds</p>
+    <p class="sec-label">07 / Confidence Thresholds</p>
     <h2>Threshold Framework</h2>
     <p class="sec-desc">A prediction counts as correct only if the model's reported confidence meets or exceeds the threshold. This separates high-certainty correct classifications from uncertain ones.</p>
     <div class="conf-grid">
       <div class="conf-card">
         <h4>Confidence Tiers</h4>
-        <div class="tier-row">
-          <span class="tier-lbl">LOW ≥ 0.50</span>
-          <div class="tier-track"><div class="tier-fill" style="width:50%;background:var(--dim);"></div></div>
-          <span class="tier-num">0.50</span>
-        </div>
-        <div class="tier-row">
-          <span class="tier-lbl">MED ≥ 0.70</span>
-          <div class="tier-track"><div class="tier-fill" style="width:70%;background:var(--amber);"></div></div>
-          <span class="tier-num">0.70</span>
-        </div>
-        <div class="tier-row">
-          <span class="tier-lbl">HIGH ≥ 0.90</span>
-          <div class="tier-track"><div class="tier-fill" style="width:90%;background:var(--green);"></div></div>
-          <span class="tier-num">0.90</span>
-        </div>
+        <div class="tier-row"><span class="tier-lbl">LOW ≥ 0.50</span><div class="tier-track"><div class="tier-fill" style="width:50%;background:var(--dim);"></div></div><span class="tier-num">0.50</span></div>
+        <div class="tier-row"><span class="tier-lbl">MED ≥ 0.70</span><div class="tier-track"><div class="tier-fill" style="width:70%;background:var(--ltv);"></div></div><span class="tier-num">0.70</span></div>
+        <div class="tier-row"><span class="tier-lbl">HIGH ≥ 0.90</span><div class="tier-track"><div class="tier-fill" style="width:90%;background:var(--red);"></div></div><span class="tier-num">0.90</span></div>
       </div>
       <div class="conf-card">
         <h4>Evaluation Prompt</h4>
@@ -668,15 +562,10 @@
 
   <!-- CITATION -->
   <section id="citation">
-    <p class="eyebrow">Citation</p>
+    <p class="sec-label">08 / Citation</p>
     <h2>How to Cite</h2>
     <div class="cite-box">
-      <button class="cite-copy" onclick="
-        const t=this.parentElement.innerText.replace(/copy|copied!/g,'').trim();
-        navigator.clipboard.writeText(t);
-        this.textContent='copied!';
-        setTimeout(()=>this.textContent='copy',2000);
-      ">copy</button>
+      <button class="cite-copy" onclick="const t=this.parentElement.innerText.replace(/copy|copied!/g,'').trim();navigator.clipboard.writeText(t);this.textContent='copied!';setTimeout(()=>this.textContent='copy',2000);">copy</button>
       @misc{eva-vlm-state-evaluator-2025,<br>
       &nbsp;&nbsp;title  = {EVA VLM State Evaluator: Benchmarking VLM Performance on Astronaut EVA State Detection},<br>
       &nbsp;&nbsp;author = {NASA SUITS Team},<br>
@@ -694,8 +583,7 @@
   <ul class="footer-links">
     <li><a href="#phases">Phases</a></li>
     <li><a href="#augmentation">Augmentation</a></li>
-    <li><a href="#model">Model</a></li>
-    <li><a href="#leaderboard">Leaderboard</a></li>
+    <li><a href="#results">Results</a></li>
     <li><a href="https://github.com/rodrigoagallardo008/EVA-VLM-Evaluator" target="_blank">GitHub</a></li>
   </ul>
 </footer>
@@ -710,33 +598,25 @@ async function loadResultsFromRepo() {
     if (!res.ok) throw new Error('manifest not found');
     const manifest = await res.json();
     const files = manifest.runs || [];
-
-    if (!files.length) {
-      setStatus('No results committed yet — run evaluate.py then publish_results.py and push.', false);
-      renderAll(); return;
-    }
-
+    if (!files.length) { setStatus('No results committed yet — run evaluate.py then publish_results.py and push.', false); renderAll(); return; }
     setStatus(`Loading ${files.length} result file${files.length!==1?'s':''}…`, true);
     const chips = document.getElementById('chips');
     chips.innerHTML = '';
-
     let loaded = 0;
     for (const filename of files) {
       try {
         const r = await fetch(`results/${filename}?v=${Date.now()}`);
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        if (!r.ok) throw new Error();
         const data = await r.json();
-        if (!data.summary || !data.confusion_matrix) throw new Error('invalid format');
+        if (!data.summary || !data.confusion_matrix) throw new Error();
         runs.push(data);
         loaded++;
-        const chip = document.createElement('div');
-        chip.className = 'chip';
+        const chip = document.createElement('div'); chip.className = 'chip';
         chip.textContent = data.run_label || filename;
         chips.appendChild(chip);
-      } catch(e) { console.warn(`Could not load ${filename}:`, e.message); }
+      } catch(e) { console.warn(`Could not load ${filename}`); }
     }
-
-    setStatus(loaded ? `${loaded} run${loaded!==1?'s':''} loaded from repository.` : 'Found manifest but could not load result files.', false);
+    setStatus(loaded ? `${loaded} run${loaded!==1?'s':''} loaded from repository.` : 'Could not load result files.', false);
     renderAll();
   } catch(e) {
     setStatus('No results yet — run evaluate.py, then publish_results.py, and push.', false);
@@ -748,10 +628,10 @@ function setStatus(text, spinning) {
   document.getElementById('fetch-msg').textContent = text;
   const sp = document.getElementById('spinner');
   sp.style.animation = spinning ? 'spin 0.7s linear infinite' : 'none';
-  sp.style.opacity = spinning ? '1' : '0';
+  sp.style.opacity = spinning ? '1' : '0.3';
 }
 
-function renderAll() { renderStats(); renderLeaderboard(); renderPhaseSummary(); populateCMSel(); renderCM(); }
+function renderAll() { renderStats(); renderResults(); renderPhaseSummary(); populateCMSel(); renderCM(); }
 const pct = v => v != null ? (v*100).toFixed(1)+'%' : '—';
 
 function renderStats() {
@@ -760,23 +640,22 @@ function renderStats() {
   document.getElementById('stat-best').textContent = (Math.max(...runs.map(r => r.summary?.accuracy||0))*100).toFixed(1)+'%';
 }
 
-function renderLeaderboard() {
-  const wrap = document.getElementById('lb-wrap');
+function renderResults() {
+  const wrap = document.getElementById('results-wrap');
   if (!runs.length) {
     wrap.innerHTML = `<div class="empty-state"><p>No results committed to the repository yet.</p><small>Run evaluate.py → python publish_results.py → git push</small></div>`;
     return;
   }
   const sorted = [...runs].sort((a,b) => (b.summary?.accuracy||0)-(a.summary?.accuracy||0));
-  const medals = ['#1','#2','#3'];
   wrap.innerHTML = `
-    <div class="lb-card">
-      <div class="lb-head">
-        <span class="lb-title">EVA_STATE_DETECTION · v0.1 · OVERALL ACCURACY</span>
-        <span class="lb-meta">${runs.length} run${runs.length!==1?'s':''}</span>
+    <div class="results-card">
+      <div class="rc-head">
+        <span class="rc-title">EVA_STATE_DETECTION · v0.1 · PHASE ACCURACY</span>
+        <span class="rc-meta">${runs.length} run${runs.length!==1?'s':''}</span>
       </div>
       <table>
         <thead><tr>
-          <th style="width:36px">#</th><th>Run / Model</th>
+          <th style="width:32px">#</th><th>Run / Model</th>
           <th class="r">Overall</th>
           <th>Egress</th><th>Navigation</th><th>LTV Repair</th>
           <th class="r">Avg Conf.</th><th class="r">N</th>
@@ -785,13 +664,13 @@ function renderLeaderboard() {
           const pa = r.phase_accuracy||{};
           const eg=pa.EGRESS?.accuracy, nv=pa.NAVIGATION?.accuracy, lt=pa.LTV_REPAIR?.accuracy;
           return `<tr>
-            <td style="font-family:var(--mono);font-size:12px;color:var(--dim);">${i+1}</td>
+            <td style="font-family:var(--mono);font-size:11px;color:var(--dim);">${i+1}</td>
             <td><div class="model-name">${r.run_label||'—'}</div><div class="model-date">${r.model||''} · ${r.timestamp?r.timestamp.slice(0,10):''}</div></td>
             <td class="r"><span class="score-main">${pct(r.summary?.accuracy)}</span></td>
             <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill bf-e" style="width:${eg?eg*100:0}%"></div></div><span class="bar-num">${pct(eg)}</span></div></td>
             <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill bf-n" style="width:${nv?nv*100:0}%"></div></div><span class="bar-num">${pct(nv)}</span></div></td>
             <td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill bf-l" style="width:${lt?lt*100:0}%"></div></div><span class="bar-num">${pct(lt)}</span></div></td>
-            <td class="r" style="font-family:var(--mono);font-size:12px;">${r.summary?.avg_confidence!=null?(r.summary.avg_confidence*100).toFixed(0)+'%':'—'}</td>
+            <td class="r" style="font-family:var(--mono);font-size:11px;">${r.summary?.avg_confidence!=null?(r.summary.avg_confidence*100).toFixed(0)+'%':'—'}</td>
             <td class="r" style="font-family:var(--mono);font-size:11px;color:var(--dim);">${r.summary?.total||'—'}</td>
           </tr>`;
         }).join('')}</tbody>
@@ -822,24 +701,37 @@ function renderCM() {
   const idx = parseInt(document.getElementById('cm-sel').value);
   if (isNaN(idx)||!runs[idx]) { resetCM(); return; }
   const cm = runs[idx].confusion_matrix; if (!cm) { resetCM(); return; }
+
+  // Blues colormap: interpolate from #f7fbff (near white) to #08306b (dark blue)
+  function bluesColor(t) {
+    // t in [0,1]
+    const stops = [
+      [247,251,255], [222,235,247], [198,219,239],
+      [158,202,225], [107,174,214], [66,146,198],
+      [33,113,181],  [8,81,156],   [8,48,107]
+    ];
+    const scaled = t * (stops.length - 1);
+    const lo = Math.floor(scaled), hi = Math.min(lo + 1, stops.length - 1);
+    const f = scaled - lo;
+    const r = Math.round(stops[lo][0] + f*(stops[hi][0]-stops[lo][0]));
+    const g = Math.round(stops[lo][1] + f*(stops[hi][1]-stops[lo][1]));
+    const b = Math.round(stops[lo][2] + f*(stops[hi][2]-stops[lo][2]));
+    return { rgb: `rgb(${r},${g},${b})`, dark: t > 0.55 };
+  }
+
   for (let r=0;r<3;r++) {
     const tp=PHASES[r], rowTot=PHASES.reduce((s,p)=>s+(cm[tp]?.[p]??0),0);
     for (let c=0;c<3;c++) {
-      const val=cm[tp]?.[PHASES[c]]??0, p=rowTot>0?((val/rowTot)*100).toFixed(0):0;
+      const val=cm[tp]?.[PHASES[c]]??0;
+      const pctNum = rowTot>0?(val/rowTot):0;
+      const pctStr = (pctNum*100).toFixed(0)+'%';
       const el=document.getElementById(`cm-${r}${c}`);
-      el.innerHTML=`<span class="cm-val">${val}</span><span class="cm-pct">${p}%</span>`;
-      if (r===c) {
-        const intensity=rowTot>0?val/rowTot:0;
-        el.style.background=`rgba(30,58,138,${0.25+intensity*0.75})`;
-        el.querySelector('.cm-val').style.color='#fff';
-        el.querySelector('.cm-pct').style.color='rgba(255,255,255,0.65)';
-      } else {
-        const intensity=rowTot>0?val/rowTot:0;
-        el.style.background=intensity>0.3?'var(--blue)':intensity>0.15?'var(--blue-mid)':intensity>0.03?'var(--blue-light)':'#fff';
-        const dark=intensity>0.3;
-        el.querySelector('.cm-val').style.color=dark?'#fff':'var(--text)';
-        el.querySelector('.cm-pct').style.color=dark?'rgba(255,255,255,0.7)':'var(--dim)';
-      }
+      el.innerHTML=`<span class="cm-val">${val}</span><span class="cm-pct">${pctStr}</span>`;
+      const { rgb, dark } = bluesColor(pctNum);
+      el.style.background = rgb;
+      const textColor = dark ? '#ffffff' : '#111111';
+      el.querySelector('.cm-val').style.color = textColor;
+      el.querySelector('.cm-pct').style.color = dark ? 'rgba(255,255,255,0.75)' : '#555';
     }
   }
 }
